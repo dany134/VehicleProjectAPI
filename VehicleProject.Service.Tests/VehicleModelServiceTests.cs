@@ -8,6 +8,7 @@ using FluentAssertions;
 using Moq;
 using VehicleProject.Repository.Common;
 using VehicleProject.Models;
+using VehicleProject.Common.Extensions;
 
 namespace VehicleProject.Service.Tests
 {
@@ -41,12 +42,17 @@ namespace VehicleProject.Service.Tests
                     VehicleMakeId = 2
                 },
             }.AsEnumerable();
+            string searchString = "";
 
-            
+            int page = 0;
 
-            _mockRepo.Setup(x => x.GetAllModels()).Returns(Task.FromResult(vehicleModels));
+            Filtering filter = new Filtering(searchString);
+            Paging paging = new Paging(page);
+
+
+            _mockRepo.Setup(x => x.GetAllModels(filter, paging)).Returns(Task.FromResult(vehicleModels));
             //Act
-            var result = await _service.GetModelsList();
+            var result = await _service.GetModelsList(filter, paging);
 
             //Assert
             result.Should().BeEquivalentTo(vehicleModels);
@@ -56,12 +62,17 @@ namespace VehicleProject.Service.Tests
         {
             //Arrange
             var vehicleModels = new List<VehicleModel>().AsEnumerable();
+            string searchString = "";
 
-            
+            int page = 0;
 
-            _mockRepo.Setup(x => x.GetAllModels()).Returns(Task.FromResult(vehicleModels));
+            Filtering filter = new Filtering(searchString);
+            Paging paging = new Paging(page);
+
+
+            _mockRepo.Setup(x => x.GetAllModels(filter, paging)).Returns(Task.FromResult(vehicleModels));
             //Act
-            var result = await _service.GetModelsList();
+            var result = await _service.GetModelsList(filter, paging);
 
             //Assert
             result.Should().BeEmpty();
