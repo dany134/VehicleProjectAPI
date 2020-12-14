@@ -21,17 +21,35 @@ namespace VehicleProject.Repository
          
 
         }
-        public async Task<IEnumerable<VehicleModel>> GetAllModels(Filtering filter, Paging page)
+        public async Task<IEnumerable<VehicleModel>> GetAllModels(Filtering filter, Paging page, Sorting sorting)
         {
             IQueryable<VehicleModel> models = _genericRepository.GetAll();
+            models = models.Include(m => m.VehicleMake);
             if (filter.Filter())
             {
-                models = models.Where(m => m.Name.Contains(filter.FilterBy) || m.Abrv.Contains(filter.FilterBy));
+                models = models.Where(m => m.Name.Contains(filter.FilterBy) || m.Abrv.Contains(filter.FilterBy) || m.VehicleMake.Name.Contains(filter.FilterBy));
             }
             page.TotalItems = models.Count();
+            switch (sorting.SortBy)
+            {
+                case "name_desc":
+                    models = models.OrderByDescending(v => v.Name);
+                    break;
 
+                case "Abrv":
+                    models = models.OrderBy(v => v.Abrv);
+                    break;
 
-            return await models.OrderBy(m => m.Name).Skip(page.ItemsToSkip).Take(page.PageSize).ToListAsync();
+                case "abrv_desc":
+                    models = models.OrderByDescending(v => v.Abrv);
+                    break;
+
+                default:
+                    models = models.OrderBy(v => v.Name);
+                    break;
+            }
+
+            return await models.Skip(page.ItemsToSkip).Take(page.PageSize).ToListAsync();
         }
         public async Task<VehicleModel> GetModelById(int makeId)
         {

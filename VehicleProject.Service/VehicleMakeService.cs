@@ -10,7 +10,7 @@ using VehicleProject.Models;
 using VehicleProject.Service.Common;
 using VehicleProject.Common;
 using VehicleProject.Common.Extensions;
-
+using VehicleProject.Models.Common;
 namespace VehicleProject.Service
 {
     public class VehicleMakeService : IVehicleMakeService
@@ -24,20 +24,24 @@ namespace VehicleProject.Service
             _vehicleRepository = vehicleMakeRepository;
             uow = unitOfWork;
         }
-        public async Task<IEnumerable<VehicleMake>> GetMakesList(Filtering filter, Paging page)
+
+        public async Task<IEnumerable<IVehicleMake>> GetMakesForDropDown()
         {
-            return await _vehicleRepository.GetAllMakes(filter, page);
+            return await _vehicleRepository.GetMakesList();
         }
-        public async Task<VehicleMake> GetMakeById(int makeId)
+        public async Task<IEnumerable<IVehicleMake>> GetMakesList(Filtering filter, Paging page, Sorting sorting)
         {
-            VehicleMake make = await _vehicleRepository.GetMakeById(makeId);
+            return await _vehicleRepository.GetAllMakes(filter, page, sorting);
+        }
+        public async Task<IVehicleMake> GetMakeById(int makeId)
+        {
+            IVehicleMake make = await _vehicleRepository.GetMakeById(makeId);
             return make;
         }
         public async Task<bool> InsertMake(VehicleMake make)
         {
             try
-            {
-                
+            {    
                 await _vehicleRepository.AddMake(make);
                 await uow.Save();
                 return true;

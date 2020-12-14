@@ -18,6 +18,7 @@ using VehicleProject.WebAPI.ViewModels;
 using VehicleProject.Common;
 using System.Web.Mvc;
 using VehicleProject.Common.Extensions;
+using VehicleProject.Models.Common;
 
 namespace VehicleProject.WebAPI.Controllers
 {
@@ -36,11 +37,12 @@ namespace VehicleProject.WebAPI.Controllers
         }
 
         // GET: api/VehicleModels
-        public async Task<IHttpActionResult> GetVehicleModels(string searchString, int? page)
+        public async Task<IHttpActionResult> GetVehicleModels(string searchString, int? page, string sortBy)
         {
             Filtering filter = new Filtering(searchString);
+            Sorting sort = new Sorting(sortBy);
             Paging pages = new Paging(page);
-            var models = await _service.GetModelsList(filter, pages);
+            var models = await _service.GetModelsList(filter, pages, sort);
             List<VehicleModelViewModel> viewModel = _mapper.Map<List<VehicleModelViewModel>>(models);
             return Ok(viewModel);
         }
@@ -60,8 +62,8 @@ namespace VehicleProject.WebAPI.Controllers
         }
 
         // PUT: api/VehicleModels/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutVehicleModel(int id, VehicleModel vehicleModel)
+        [ResponseType(typeof(VehicleModelViewModel))]
+        public async Task<IHttpActionResult> PutVehicleModel(int id, VehicleModelViewModel vehicleModel)
         {
             if (!ModelState.IsValid)
             {
@@ -72,25 +74,25 @@ namespace VehicleProject.WebAPI.Controllers
             {
                 return BadRequest();
             }
-
+            VehicleModel model = _mapper.Map<VehicleModel>(vehicleModel);
                 
-               await  _service.UpdateModel(vehicleModel);
+               await  _service.UpdateModel(model);
             VehicleModelViewModel viewModel = _mapper.Map<VehicleModelViewModel>(vehicleModel);
 
             return Ok(viewModel);
         }
 
         // POST: api/VehicleModels
-        [ResponseType(typeof(VehicleModel))]
-        public async Task<IHttpActionResult> PostVehicleModel(VehicleModel vehicleModel)
+        [ResponseType(typeof(VehicleModelViewModel))]
+        public async Task<IHttpActionResult> PostVehicleModel(VehicleModelViewModel vehicleModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            
-            await _service.InsertModel(vehicleModel);
+            VehicleModel model = _mapper.Map<VehicleModel>(vehicleModel);
+            await _service.InsertModel(model);
             
             VehicleModelViewModel viewModel = _mapper.Map<VehicleModelViewModel>(vehicleModel);
 
@@ -98,7 +100,7 @@ namespace VehicleProject.WebAPI.Controllers
         }
 
         // DELETE: api/VehicleModels/5
-        [ResponseType(typeof(VehicleModel))]
+        [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> DeleteVehicleModel(int id)
         {
             VehicleModel vehicleModel = await _service.GetModelById(id);

@@ -12,7 +12,7 @@ namespace VehicleProject.WebAPI.App_Start
     {
         public MapperProfile()
         {
-            CreateMap<VehicleMake, VehicleMakeViewModel>();
+            CreateMap<VehicleMake, VehicleMakeViewModel>().ReverseMap();
             CreateMap<VehicleModel, VehicleModelViewModel>();
         }
     }

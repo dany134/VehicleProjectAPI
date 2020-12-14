@@ -22,9 +22,9 @@ namespace VehicleProject.Service
             uow = unitOfWork;
             _modelRepository = modelRepository;
         }
-        public async Task<IEnumerable<VehicleModel>> GetModelsList(Filtering filter, Paging page)
+        public async Task<IEnumerable<VehicleModel>> GetModelsList(Filtering filter, Paging page, Sorting sorting)
         {
-            return await _modelRepository.GetAllModels(filter, page);
+            return await _modelRepository.GetAllModels(filter, page, sorting);
 
         }
         public async Task<VehicleModel> GetModelById(int Id)

@@ -43,8 +43,10 @@
   <ItemGroup>
     <Compile Include="Extensions\Filtering.cs" />
     <Compile Include="Extensions\Paging.cs" />
+    <Compile Include="Extensions\Sorting.cs" />
     <Compile Include="Interfaces\IFiltering.cs" />
     <Compile Include="Interfaces\IPaging.cs" />
+    <Compile Include="Interfaces\ISorting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

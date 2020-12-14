@@ -10,7 +10,7 @@ namespace VehicleProject.Service.Common
 {
     public interface IVehicleModelService
     {
-        Task<IEnumerable<VehicleModel>> GetModelsList(Filtering filter, Paging page);
+        Task<IEnumerable<VehicleModel>> GetModelsList(Filtering filter, Paging page, Sorting sorting);
         Task<VehicleModel> GetModelById(int Id);
         Task<bool> DeleteModel(int Id);
         Task<bool> InsertModel(VehicleModel model);

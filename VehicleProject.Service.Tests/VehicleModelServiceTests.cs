@@ -43,16 +43,16 @@ namespace VehicleProject.Service.Tests
                 },
             }.AsEnumerable();
             string searchString = "";
-
+            string sortBy = "";
             int page = 0;
-
+            Sorting sort = new Sorting(sortBy);
             Filtering filter = new Filtering(searchString);
             Paging paging = new Paging(page);
 
 
-            _mockRepo.Setup(x => x.GetAllModels(filter, paging)).Returns(Task.FromResult(vehicleModels));
+            _mockRepo.Setup(x => x.GetAllModels(filter, paging, sort)).Returns(Task.FromResult(vehicleModels));
             //Act
-            var result = await _service.GetModelsList(filter, paging);
+            var result = await _service.GetModelsList(filter, paging, sort);
 
             //Assert
             result.Should().BeEquivalentTo(vehicleModels);
@@ -63,16 +63,17 @@ namespace VehicleProject.Service.Tests
             //Arrange
             var vehicleModels = new List<VehicleModel>().AsEnumerable();
             string searchString = "";
-
+            string sortBy = "";
             int page = 0;
 
             Filtering filter = new Filtering(searchString);
+            Sorting sort = new Sorting(sortBy);
             Paging paging = new Paging(page);
 
 
-            _mockRepo.Setup(x => x.GetAllModels(filter, paging)).Returns(Task.FromResult(vehicleModels));
+            _mockRepo.Setup(x => x.GetAllModels(filter, paging, sort)).Returns(Task.FromResult(vehicleModels));
             //Act
-            var result = await _service.GetModelsList(filter, paging);
+            var result = await _service.GetModelsList(filter, paging, sort);
 
             //Assert
             result.Should().BeEmpty();

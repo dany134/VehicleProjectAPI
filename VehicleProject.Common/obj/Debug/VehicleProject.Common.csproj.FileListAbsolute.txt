@@ -4,3 +4,8 @@ C:\Users\hh\source\repos\VehicleProject\VehicleProject.Common\obj\Debug\VehicleP
 C:\Users\hh\source\repos\VehicleProject\VehicleProject.Common\obj\Debug\VehicleProject.Common.csproj.CoreCompileInputs.cache
 C:\Users\hh\source\repos\VehicleProject\VehicleProject.Common\obj\Debug\VehicleProject.Common.dll
 C:\Users\hh\source\repos\VehicleProject\VehicleProject.Common\obj\Debug\VehicleProject.Common.pdb
+C:\Users\danie\source\repos\VehicleProjectAPI-master\VehicleProjectAPI-master\VehicleProject.Common\bin\Debug\VehicleProject.Common.dll
+C:\Users\danie\source\repos\VehicleProjectAPI-master\VehicleProjectAPI-master\VehicleProject.Common\bin\Debug\VehicleProject.Common.pdb
+C:\Users\danie\source\repos\VehicleProjectAPI-master\VehicleProjectAPI-master\VehicleProject.Common\obj\Debug\VehicleProject.Common.csproj.CoreCompileInputs.cache
+C:\Users\danie\source\repos\VehicleProjectAPI-master\VehicleProjectAPI-master\VehicleProject.Common\obj\Debug\VehicleProject.Common.dll
+C:\Users\danie\source\repos\VehicleProjectAPI-master\VehicleProjectAPI-master\VehicleProject.Common\obj\Debug\VehicleProject.Common.pdb

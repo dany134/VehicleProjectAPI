@@ -11,6 +11,7 @@ using VehicleProject.Repository.Common;
 using System.Reflection;
 using VehicleProject.Models;
 using VehicleProject.Common.Extensions;
+using VehicleProject.Models.Common;
 
 namespace VehicleProject.Service.Tests
 {
@@ -29,7 +30,7 @@ namespace VehicleProject.Service.Tests
         public async Task MakeList_ShouldReturnList()
         {
             //Arrange
-            var makes = new List<VehicleMake>
+            var makes = new List<IVehicleMake>
             {
                 new VehicleMake {Id = 1, Name = "Mercedes-Benz", Abrv = "Mercedes"},
                 new VehicleMake {Id = 2, Name = "Dacia", Abrv = "Dac"},
@@ -37,16 +38,16 @@ namespace VehicleProject.Service.Tests
 
             }.AsEnumerable();
             string searchString = "";
-            
+            string sortBy = "";
             int page = 0;
-
+            Sorting sort = new Sorting(sortBy);
             Filtering filter = new Filtering(searchString);
             Paging paging = new Paging(page);
             
 
-            _makeRepoMock.Setup(x => x.GetAllMakes(filter, paging)).Returns(Task.FromResult(makes));
+            _makeRepoMock.Setup(x => x.GetAllMakes(filter, paging, sort)).Returns(Task.FromResult(makes));
             //Act
-            var result = await _service.GetMakesList(filter, paging);
+            var result = await _service.GetMakesList(filter, paging, sort);
             //Assert
             
             result.Should().BeEquivalentTo(makes);
@@ -57,20 +58,22 @@ namespace VehicleProject.Service.Tests
         public async Task MakesList_ShouldNotReturnList()
         {
             //Arrange
-            var makes = new List<VehicleMake>().AsEnumerable();
+            var makes = new List<IVehicleMake>().AsEnumerable();
 
             string searchString = "";
 
             int page = 0;
-
+            string sortBy = "";
+           
+            Sorting sort = new Sorting(sortBy);
             Filtering filter = new Filtering(searchString);
             Paging paging = new Paging(page);
 
 
 
-            _makeRepoMock.Setup(x => x.GetAllMakes(filter, paging)).Returns(Task.FromResult(makes));
+            _makeRepoMock.Setup(x => x.GetAllMakes(filter, paging, sort)).Returns(Task.FromResult(makes));
             //Act
-            var result = await _service.GetMakesList(filter, paging);
+            var result = await _service.GetMakesList(filter, paging, sort);
 
             //Assert
             result.Should().BeEmpty();
@@ -91,7 +94,7 @@ namespace VehicleProject.Service.Tests
             _makeRepoMock.Setup(x => x.GetMakeById(Id)).ReturnsAsync(make);
 
             //Act
-            VehicleMake vehicleMake = await _service.GetMakeById(Id);
+            IVehicleMake vehicleMake = await _service.GetMakeById(Id);
 
             //Assert
             

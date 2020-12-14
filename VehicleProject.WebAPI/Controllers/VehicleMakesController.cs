@@ -17,16 +17,15 @@ using VehicleProject.Service;
 using VehicleProject.Service.Common;
 using VehicleProject.Common.Extensions;
 using VehicleProject.WebAPI.ViewModels;
+using VehicleProject.Models.Common;
 
 namespace VehicleProject.WebAPI.Controllers
 {
     public class VehicleMakesController : ApiController
     {
-       
-       
+
         private IVehicleMakeService _vehicleService;
-        private IMapper _mapper;
-        
+        private IMapper _mapper; 
        
         public VehicleMakesController(IVehicleMakeService vehicleMakeService, IMapper mapper)
         {
@@ -34,15 +33,21 @@ namespace VehicleProject.WebAPI.Controllers
             _mapper = mapper;
             
         }
-
-
+        [HttpGet]
+        [Route("api/VehicleMakes/dropList")]
+        public async Task <IHttpActionResult> GetMakesList()
+        {
+            IEnumerable<IVehicleMake> makes = await _vehicleService.GetMakesForDropDown();
+            List<VehicleMakeViewModel> viewModel = _mapper.Map<List<VehicleMakeViewModel>>(makes);
+            return Ok(viewModel);
+        }
         // GET: api/VehicleMakes
-        public async Task<IHttpActionResult> GetVehicleMakes(string searchString, int? page)
+        public async Task<IHttpActionResult> GetVehicleMakes(string searchString, int? page, string sortBy)
         {
             Filtering filter = new Filtering(searchString);
-            
+            Sorting sorting = new Sorting(sortBy);
             Paging paging = new Paging(page);
-            IEnumerable<VehicleMake> makes = await _vehicleService.GetMakesList(filter, paging);
+            IEnumerable<IVehicleMake> makes = await _vehicleService.GetMakesList(filter, paging, sorting);
             List<VehicleMakeViewModel> viewModel = _mapper.Map<List<VehicleMakeViewModel>>(makes);
             return Ok(viewModel);
            
@@ -52,7 +57,7 @@ namespace VehicleProject.WebAPI.Controllers
         [ResponseType(typeof(VehicleMakeViewModel))]
         public async Task<IHttpActionResult> GetVehicleMake(int id)
         {
-            VehicleMake vehicleMake = await _vehicleService.GetMakeById(id);
+            IVehicleMake vehicleMake = await _vehicleService.GetMakeById(id);
             VehicleMakeViewModel viewModel = _mapper.Map<VehicleMakeViewModel>(vehicleMake);
             if (vehicleMake == null)
             {
@@ -63,51 +68,48 @@ namespace VehicleProject.WebAPI.Controllers
         }
 
         // PUT: api/VehicleMakes/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutVehicleMake(int id, VehicleMake vehicleMake)
+        [ResponseType(typeof(VehicleMakeViewModel))]
+        public async Task<IHttpActionResult> PutVehicleMake(int id, VehicleMakeViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != vehicleMake.Id)
+            if (id != viewModel.Id)
             {
                 return BadRequest();
             }
 
-    
+            VehicleMake make = _mapper.Map<VehicleMake>(viewModel);
+                await _vehicleService.UpdateMake(make);
+            //VehicleMakeViewModel viewModel = _mapper.Map<VehicleMakeViewModel>(vehicleMake);
             
-                await _vehicleService.UpdateMake(vehicleMake);
-            VehicleMakeViewModel viewmodel = _mapper.Map<VehicleMakeViewModel>(vehicleMake);
-     
-
-            return Ok(viewmodel);
+            return Ok(viewModel);
         }
 
         // POST: api/VehicleMakes
-        [ResponseType(typeof(VehicleMake))]
-        public async Task<IHttpActionResult> PostVehicleMake(VehicleMake vehicleMake)
+        [ResponseType(typeof(VehicleMakeViewModel))]
+        public async Task<IHttpActionResult> PostVehicleMake(VehicleMakeViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            VehicleMake make = _mapper.Map<VehicleMake>(viewModel);
+            await _vehicleService.InsertMake(make);
 
-           
-            await _vehicleService.InsertMake(vehicleMake);
-            
-            VehicleMakeViewModel viewModel = _mapper.Map<VehicleMakeViewModel>(vehicleMake);
+            //VehicleMakeViewModel viewModel = _mapper.Map<VehicleMakeViewModel>(make);
             return CreatedAtRoute("DefaultApi", new { id = viewModel.Id }, viewModel);
         }
 
         // DELETE: api/VehicleMakes/5
         [HttpDelete]
-        [ResponseType(typeof(VehicleMake))]
+        [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> DeleteVehicleMake(int id)
         {
             
-            VehicleMake make = await _vehicleService.GetMakeById(id);
+            IVehicleMake make = await _vehicleService.GetMakeById(id);
             if (make == null)
             {
                 return NotFound();
@@ -118,9 +120,6 @@ namespace VehicleProject.WebAPI.Controllers
             
             return  StatusCode(HttpStatusCode.NoContent);
         }
-
-    
-    
 
         
     }

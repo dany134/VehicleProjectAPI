@@ -10,7 +10,7 @@ namespace VehicleProject.Repository.Common
 {
     public interface IVehicleModelRepository : IGenericRepository<VehicleModel>
     {
-        Task<IEnumerable<VehicleModel>> GetAllModels(Filtering filter, Paging page);
+        Task<IEnumerable<VehicleModel>> GetAllModels(Filtering filter, Paging page, Sorting sorting);
         Task<VehicleModel> GetModelById(int id);
         Task<bool> AddModel(VehicleModel model);
         Task<bool> UpdateModel(VehicleModel model);

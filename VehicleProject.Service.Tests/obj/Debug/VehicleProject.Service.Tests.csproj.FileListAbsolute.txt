@@ -38,3 +38,7 @@ C:\Users\hh\source\repos\VehicleProject\VehicleProject.Service.Tests\obj\Debug\V
 C:\Users\hh\source\repos\VehicleProject\VehicleProject.Service.Tests\bin\Debug\xunit.runner.visualstudio.testadapter.dll
 C:\Users\hh\source\repos\VehicleProject\VehicleProject.Service.Tests\bin\Debug\xunit.runner.reporters.net452.dll
 C:\Users\hh\source\repos\VehicleProject\VehicleProject.Service.Tests\bin\Debug\xunit.runner.utility.net452.dll
+C:\Users\danie\source\repos\VehicleProjectAPI-master\VehicleProjectAPI-master\VehicleProject.Service.Tests\obj\Debug\VehicleProject.Service.Tests.csprojAssemblyReference.cache
+C:\Users\danie\source\repos\VehicleProjectAPI-master\VehicleProjectAPI-master\VehicleProject.Service.Tests\obj\Debug\VehicleProject.Service.Tests.csproj.CoreCompileInputs.cache
+C:\Users\danie\source\repos\VehicleProjectAPI-master\VehicleProjectAPI-master\VehicleProject.Service.Tests\obj\Debug\VehicleProject.Service.Tests.dll
+C:\Users\danie\source\repos\VehicleProjectAPI-master\VehicleProjectAPI-master\VehicleProject.Service.Tests\obj\Debug\VehicleProject.Service.Tests.pdb
