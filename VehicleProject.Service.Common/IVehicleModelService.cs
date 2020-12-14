@@ -14,7 +14,7 @@ namespace VehicleProject.Service.Common
         Task<IEnumerable<IVehicleModel>> GetModelsList(Filtering filter, Paging page, Sorting sorting);
         Task<IVehicleModel> GetModelById(int Id);
         Task<bool> DeleteModel(int Id);
-        Task<bool> InsertModel(VehicleModel model);
-        Task<bool> UpdateModel(VehicleModel model);
+        Task<bool> InsertModel(IVehicleModel model);
+        Task<bool> UpdateModel(IVehicleModel model);
     }
 }

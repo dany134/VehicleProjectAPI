@@ -38,7 +38,7 @@ namespace VehicleProject.Service
             IVehicleMake make = await _vehicleRepository.GetMakeById(makeId);
             return make;
         }
-        public async Task<bool> InsertMake(VehicleMake make)
+        public async Task<bool> InsertMake(IVehicleMake make)
         {
             try
             {    
@@ -67,7 +67,7 @@ namespace VehicleProject.Service
             }
 
         }
-        public async Task<bool> UpdateMake(VehicleMake make)
+        public async Task<bool> UpdateMake(IVehicleMake make)
         {
             try
             {

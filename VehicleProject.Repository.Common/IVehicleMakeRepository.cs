@@ -15,8 +15,8 @@ namespace VehicleProject.Repository.Common
         Task<IEnumerable<IVehicleMake>> GetMakesList();
         Task<IEnumerable<IVehicleMake>> GetAllMakes(Filtering filter, Paging page, Sorting sorting);
         Task<IVehicleMake> GetMakeById(int id);
-        Task<bool> AddMake(VehicleMake make);
-        Task<bool> UpdateMake(VehicleMake make);
+        Task<bool> AddMake(IVehicleMake make);
+        Task<bool> UpdateMake(IVehicleMake make);
         Task<bool> DeleteMake(int Id);
     }
 }

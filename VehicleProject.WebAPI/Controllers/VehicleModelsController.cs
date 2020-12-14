@@ -74,7 +74,7 @@ namespace VehicleProject.WebAPI.Controllers
             {
                 return BadRequest();
             }
-            VehicleModel model = _mapper.Map<VehicleModel>(vehicleModel);
+            IVehicleModel model = _mapper.Map<VehicleModel>(vehicleModel);
                 
                await  _service.UpdateModel(model);
             VehicleModelViewModel viewModel = _mapper.Map<VehicleModelViewModel>(vehicleModel);
@@ -91,7 +91,7 @@ namespace VehicleProject.WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            VehicleModel model = _mapper.Map<VehicleModel>(vehicleModel);
+            IVehicleModel model = _mapper.Map<VehicleModel>(vehicleModel);
             await _service.InsertModel(model);
             
             VehicleModelViewModel viewModel = _mapper.Map<VehicleModelViewModel>(vehicleModel);

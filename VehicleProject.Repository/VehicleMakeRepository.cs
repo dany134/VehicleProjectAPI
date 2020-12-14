@@ -70,11 +70,12 @@ namespace VehicleProject.Repository
             IVehicleMake make = await _genericRepository.Get(makeId);
             return make;
         }
-        public async Task<bool> AddMake(VehicleMake make)
+        public async Task<bool> AddMake(IVehicleMake make)
         {
             try
             {
-                await _genericRepository.Add(make);
+                VehicleMake eModel = _mapper.Map<VehicleMake>(make);
+                await _genericRepository.Add(eModel);
                 return true;
             }catch
             {
@@ -83,11 +84,12 @@ namespace VehicleProject.Repository
 
 
         }
-        public async Task<bool> UpdateMake(VehicleMake make)
+        public async Task<bool> UpdateMake(IVehicleMake make)
         {
             try
             {
-                await _genericRepository.Edit(make);
+                VehicleMake eModel = _mapper.Map<VehicleMake>(make);
+                await _genericRepository.Edit(eModel);
                 return true;
             }
             catch

@@ -81,7 +81,7 @@ namespace VehicleProject.WebAPI.Controllers
                 return BadRequest();
             }
 
-            VehicleMake make = _mapper.Map<VehicleMake>(viewModel);
+            IVehicleMake make = _mapper.Map<VehicleMake>(viewModel);
                 await _vehicleService.UpdateMake(make);
             //VehicleMakeViewModel viewModel = _mapper.Map<VehicleMakeViewModel>(vehicleMake);
             
@@ -96,7 +96,7 @@ namespace VehicleProject.WebAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            VehicleMake make = _mapper.Map<VehicleMake>(viewModel);
+            IVehicleMake make = _mapper.Map<VehicleMake>(viewModel);
             await _vehicleService.InsertMake(make);
 
             //VehicleMakeViewModel viewModel = _mapper.Map<VehicleMakeViewModel>(make);

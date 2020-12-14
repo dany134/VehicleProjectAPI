@@ -13,8 +13,8 @@ namespace VehicleProject.Repository.Common
     {
         Task<IEnumerable<IVehicleModel>> GetAllModels(Filtering filter, Paging page, Sorting sorting);
         Task<IVehicleModel> GetModelById(int id);
-        Task<bool> AddModel(VehicleModel model);
-        Task<bool> UpdateModel(VehicleModel model);
+        Task<bool> AddModel(IVehicleModel model);
+        Task<bool> UpdateModel(IVehicleModel model);
         Task<bool> DeleteModel(int Id);
 
     }

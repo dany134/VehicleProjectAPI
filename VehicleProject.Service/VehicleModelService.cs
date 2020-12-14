@@ -33,12 +33,11 @@ namespace VehicleProject.Service
         {
             return await _modelRepository.GetModelById(Id);
         }
-        public async Task<bool> InsertModel(VehicleModel model)
+        public async Task<bool> InsertModel(IVehicleModel model)
         {
             try
             {
-                //_modelRepository.AddModel(model);
-                //await uow.Save();
+                
                 await _modelRepository.AddModel(model);
                 await uow.Save();
                 return true;
@@ -48,7 +47,7 @@ namespace VehicleProject.Service
                 return false;
             }
         }
-        public async Task<bool> UpdateModel(VehicleModel model)
+        public async Task<bool> UpdateModel(IVehicleModel model)
         {
             try
             {

@@ -10,6 +10,7 @@ using VehicleProject.Models;
 using VehicleProject.Repository.Common;
 using VehicleProject.Common.Extensions;
 using VehicleProject.Models.Common;
+using AutoMapper;
 
 namespace VehicleProject.Repository
 {
@@ -17,9 +18,11 @@ namespace VehicleProject.Repository
     {
         
         private IGenericRepository<VehicleModel> _genericRepository;
-        public VehicleModelRepository(VehicleContext context, IGenericRepository<VehicleModel> genericRepository) : base(context)
+        private IMapper _mapper;
+        public VehicleModelRepository(VehicleContext context, IGenericRepository<VehicleModel> genericRepository, IMapper mapper) : base(context)
         {
             _genericRepository = genericRepository;
+            _mapper = mapper;
          
 
         }
@@ -58,11 +61,12 @@ namespace VehicleProject.Repository
             VehicleModel make = await _genericRepository.Get(makeId);
             return make;
         }
-        public async Task<bool> AddModel(VehicleModel model)
+        public async Task<bool> AddModel(IVehicleModel model)
         {
             try
             {
-                await _genericRepository.Add(model);
+                VehicleModel eModel = _mapper.Map<VehicleModel>(model);
+                await _genericRepository.Add(eModel);
                 return true;
             }
             catch
@@ -71,11 +75,12 @@ namespace VehicleProject.Repository
             }
 
         }
-        public async Task<bool> UpdateModel(VehicleModel model)
+        public async Task<bool> UpdateModel(IVehicleModel model)
         {
             try
             {
-                await _genericRepository.Edit(model);
+                VehicleModel eModel = _mapper.Map<VehicleModel>(model);
+                await _genericRepository.Edit(eModel);
                 return true;
             }
             catch
