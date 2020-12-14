@@ -10,6 +10,8 @@ using VehicleProject.DAL;
 using System.Runtime.InteropServices;
 using VehicleProject.Service.Common;
 using VehicleProject.Common.Extensions;
+using VehicleProject.Models.Common;
+
 namespace VehicleProject.Service
 {
     public class VehicleModelService : IVehicleModelService
@@ -22,12 +24,12 @@ namespace VehicleProject.Service
             uow = unitOfWork;
             _modelRepository = modelRepository;
         }
-        public async Task<IEnumerable<VehicleModel>> GetModelsList(Filtering filter, Paging page, Sorting sorting)
+        public async Task<IEnumerable<IVehicleModel>> GetModelsList(Filtering filter, Paging page, Sorting sorting)
         {
             return await _modelRepository.GetAllModels(filter, page, sorting);
 
         }
-        public async Task<VehicleModel> GetModelById(int Id)
+        public async Task<IVehicleModel> GetModelById(int Id)
         {
             return await _modelRepository.GetModelById(Id);
         }

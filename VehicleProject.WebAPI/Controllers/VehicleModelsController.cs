@@ -51,7 +51,7 @@ namespace VehicleProject.WebAPI.Controllers
         [ResponseType(typeof(VehicleModel))]
         public async Task<IHttpActionResult> GetVehicleModel(int id)
         {
-            VehicleModel vehicleModel = await _service.GetModelById(id);
+            var vehicleModel = await _service.GetModelById(id);
             VehicleModelViewModel viewModel = _mapper.Map<VehicleModelViewModel>(vehicleModel);
             if (vehicleModel == null)
             {
@@ -103,7 +103,7 @@ namespace VehicleProject.WebAPI.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> DeleteVehicleModel(int id)
         {
-            VehicleModel vehicleModel = await _service.GetModelById(id);
+            var vehicleModel = await _service.GetModelById(id);
             
             if (vehicleModel == null)
             {

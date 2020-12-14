@@ -9,6 +9,8 @@ using VehicleProject.DAL;
 using VehicleProject.Models;
 using VehicleProject.Repository.Common;
 using VehicleProject.Common.Extensions;
+using VehicleProject.Models.Common;
+
 namespace VehicleProject.Repository
 {
     public class VehicleModelRepository : GenericRepository<VehicleModel>, IVehicleModelRepository
@@ -21,7 +23,7 @@ namespace VehicleProject.Repository
          
 
         }
-        public async Task<IEnumerable<VehicleModel>> GetAllModels(Filtering filter, Paging page, Sorting sorting)
+        public async Task<IEnumerable<IVehicleModel>> GetAllModels(Filtering filter, Paging page, Sorting sorting)
         {
             IQueryable<VehicleModel> models = _genericRepository.GetAll();
             models = models.Include(m => m.VehicleMake);
@@ -51,7 +53,7 @@ namespace VehicleProject.Repository
 
             return await models.Skip(page.ItemsToSkip).Take(page.PageSize).ToListAsync();
         }
-        public async Task<VehicleModel> GetModelById(int makeId)
+        public async Task<IVehicleModel> GetModelById(int makeId)
         {
             VehicleModel make = await _genericRepository.Get(makeId);
             return make;
